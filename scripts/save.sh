@@ -17,7 +17,7 @@ if [ "$LOCAL" != "$REMOTE" ]; then
     echo "⚠️  WARNING: There are new changes on GitHub!"
     echo ""
     echo "Please run this first to get them:"
-    echo "  ./update.sh"
+    echo "  ./scripts/update.sh"
     echo ""
     echo "Then try saving again."
     exit 1

@@ -66,25 +66,19 @@ jobs:
           port: ${{ secrets.SERVER_PORT || 22 }}
           script_stop: true
           script: |
+            # Change to work dir
+            cd /docker/metropolia
+
             # Pull latest image
             echo "📦 Pulling latest Docker image..."
-            sudo docker pull ghcr.io/${{ github.repository }}:latest
+            docker pull ghcr.io/centswitch/metropolia:latest
 
             # Stop and remove old container
             echo "🛑 Stopping old container..."
-            sudo docker stop metropolia 2>/dev/null || true
-            sudo docker rm metropolia 2>/dev/null || true
+            docker compose down 2>/dev/null || true
 
             # Run new container
             echo "🚀 Starting new container..."
-            sudo docker run -d \
-              --name metropolia \
-              --restart unless-stopped \
-              -p 80:80 \
-              ghcr.io/${{ github.repository }}:latest
-
-            # Cleanup unused images
-            echo "🧹 Cleaning up old images..."
-            sudo docker image prune -af --filter "until=24h"
+            docker compose up -d
 
             echo "✅ Deployment complete!"
