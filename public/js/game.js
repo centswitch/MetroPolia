@@ -13,6 +13,7 @@ const ELEMENT = {
         color: "#333",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     ROAD: {
@@ -22,6 +23,7 @@ const ELEMENT = {
         color: "#777",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     RES: {
@@ -31,6 +33,7 @@ const ELEMENT = {
         color: "#2ecc71",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => level * 6,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     HIGH: {
@@ -39,16 +42,18 @@ const ELEMENT = {
         name: "Hochhaus",
         color: "#1abc9c",
         calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
+        increasePopulation: (level) => 20,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     COM: {
         id: "COM",
-        cost: 150,
+        cost: 250,
         name: "Gewerbe",
         color: "#3498db",
-        calculateIncome: (level, isNearRoad) => isNearRoad == true ? 1234123 : 0,
+        calculateIncome: (level, isNearRoad) => isNearRoad == true ? 10 : 5,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     MALL: {
@@ -56,27 +61,30 @@ const ELEMENT = {
         cost: 200,
         name: "Mall",
         color: "#f39c12",
-        calculateIncome: (level, isNearRoad) => 0,
+        calculateIncome: (level, isNearRoad) => 4,
         increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increaseCapacity: (level) => 0,
+        increasePollution: (level) => 4,
     },
     IND: {
         id: "IND",
         cost: 180,
         name: "Industrie",
         color: "#e67e22",
-        calculateIncome: (level, isNearRoad) => 0,
+        calculateIncome: (level, isNearRoad) => 3,
         increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increaseCapacity: (level) => 0,
+        increasePollution: (level) => 3,
     },
     INDPARK: {
         id: "INDPARK",
         cost: 300,
         name: "Industriepark",
         color: "#d35400",
-        calculateIncome: (level, isNearRoad) => 0,
+        calculateIncome: (level, isNearRoad) => 5,
         increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increaseCapacity: (level) => 0,
+        increasePollution: (level) => 5,
     },
     PARK: {
         id: "PARK",
@@ -85,7 +93,8 @@ const ELEMENT = {
         color: "#27ae60",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increaseCapacity: (level) => 0,
+        increasePollution: (level) => -5,
     },
     POWER: {
         id: "POWER",
@@ -94,7 +103,8 @@ const ELEMENT = {
         color: "#f1c40f",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increaseCapacity: (level) => 100,
+        increasePollution: (level) => 5,
     },
     SOLAR: {
         id: "SOLAR",
@@ -103,6 +113,7 @@ const ELEMENT = {
         color: "#f7dc6f",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 75,
         increasePollution: (level) => 0,
     },
     SCHOOL: {
@@ -111,7 +122,8 @@ const ELEMENT = {
         name: "Schule",
         color: "#9b59b6",
         calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
+        increasePopulation: (level) => 5,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     HOSPITAL: {
@@ -121,6 +133,7 @@ const ELEMENT = {
         color: "#e74c3c",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 5,
         increasePollution: (level) => 0,
     },
     AIRPORT: {
@@ -129,8 +142,9 @@ const ELEMENT = {
         name: "Flughafen",
         color: "#95a5a6",
         calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increasePopulation: (level) => 8,
+        increaseCapacity: (level) => 12,
+        increasePollution: (level) => 5,
     },
     PORT: {
         id: "PORT",
@@ -138,8 +152,9 @@ const ELEMENT = {
         name: "Hafen",
         color: "#2980b9",
         calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increasePopulation: (level) => 7,
+        increaseCapacity: (level) => 10,
+        increasePollution: (level) => 4,
     },
     SUBWAY: {
         id: "SUBWAY",
@@ -147,8 +162,9 @@ const ELEMENT = {
         name: "U-Bahn",
         color: "#bdc3c7",
         calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increasePopulation: (level) => 6,
+        increaseCapacity: (level) => 3,
+        increasePollution: (level) => 3,
     },
     RESEARCH: {
         id: "RESEARCH",
@@ -157,25 +173,28 @@ const ELEMENT = {
         color: "#8e44ad",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increaseCapacity: (level) => 2,
+        increasePollution: (level) => 1,
     },
     STADIUM: {
         id: "STADIUM",
         cost: 600,
         name: "Stadion",
         color: "#c0392b",
-        calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        calculateIncome: (level, isNearRoad) => 2,
+        increasePopulation: (level) => 2,
+        increaseCapacity: (level) => 2,
+        increasePollution: (level) => -2,
     },
     MUSEUM: {
         id: "MUSEUM",
         cost: 350,
         name: "Museum",
         color: "#d35400",
-        calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        calculateIncome: (level, isNearRoad) => 1,
+        increasePopulation: (level) => 1,
+        increaseCapacity: (level) => 1,
+        increasePollution: (level) => -1,
     },
     POLICE: {
         id: "POLICE",
@@ -184,6 +203,7 @@ const ELEMENT = {
         color: "#34495e",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     FIRE: {
@@ -193,6 +213,7 @@ const ELEMENT = {
         color: "#e74c3c",
         calculateIncome: (level, isNearRoad) => 0,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     LIBRARY: {
@@ -201,7 +222,8 @@ const ELEMENT = {
         name: "Bibliothek",
         color: "#f1c40f",
         calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
+        increasePopulation: (level) => 3,
+        increaseCapacity: (level) => 3,
         increasePollution: (level) => 0,
     },
     MARKET: {
@@ -209,17 +231,19 @@ const ELEMENT = {
         cost: 250,
         name: "Markt",
         color: "#16a085",
-        calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        calculateIncome: (level, isNearRoad) => 3,
+        increasePopulation: (level) => 1,
+        increaseCapacity: (level) => 0,
+        increasePollution: (level) => 2,
     },
     HOTEL: {
         id: "HOTEL",
         cost: 300,
         name: "Hotel",
         color: "#e67e22",
-        calculateIncome: (level, isNearRoad) => 0,
-        increasePopulation: (level) => 0,
+        calculateIncome: (level, isNearRoad) => 1,
+        increasePopulation: (level) => 4,
+        increaseCapacity: (level) => 0,
         increasePollution: (level) => 0,
     },
     FARM: {
@@ -227,17 +251,19 @@ const ELEMENT = {
         cost: 180,
         name: "Farm",
         color: "#27ae60",
-        calculateIncome: (level, isNearRoad) => 0,
+        calculateIncome: (level, isNearRoad) => 1,
         increasePopulation: (level) => 0,
-        increasePollution: (level) => 0,
+        increaseCapacity: (level) => 0,
+        increasePollution: (level) => -3,
     },
     WIND: {
         id: "WIND",
         cost: 250,
         name: "Windpark",
         color: "#7f8c8d",
-        calculateIncome: (level, isNearRoad) => 0,
+        calculateIncome: (level, isNearRoad) => 1,
         increasePopulation: (level) => 0,
+        increaseCapacity: (level) => 100,
         increasePollution: (level) => 0,
     },
 };
@@ -254,7 +280,7 @@ let current = ELEMENT.RES.id,
     warning = false,
     lastIncomeTime = Date.now(),
     people = [],
-    cars = [,];
+    cars = [, ];
 
 /* --- Init Map --- */
 for (let y = 0; y < grid; y++) {
@@ -282,7 +308,7 @@ function setType(t) {
     document.getElementById("current").innerText = ELEMENT[t].name;
     document.getElementById("cost").innerText = ELEMENT[t].cost;
 }
-setType(current,);
+setType(current, );
 
 /* --- Mouse --- */
 canvas.addEventListener("mousedown", () => mouseDown = true);
@@ -368,6 +394,7 @@ function simulate() {
             income += ELEMENT[type].calculateIncome(level[y][x], nearRoad(x, y));
             poll += ELEMENT[type].increasePollution(level[y][x]);
             basePop += ELEMENT[type].increasePopulation(level[y][x]);
+            capacity += ELEMENT[type].increaseCapacity(level[y][x]);
 
             // if (t === ELEMENT.RES.id) basePop += 6 * level[y][x];
             // if (t === ELEMENT.HIGH.id) basePop += 3099999999999999999999999999999999999999999999999 * level[y][x];
