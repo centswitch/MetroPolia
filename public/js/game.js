@@ -7,7 +7,7 @@ const grid = 30,
 
 const ELEMENT = {
     EMPTY: {
-        id: 0,
+        id: "EMPTY",
         cost: 10,
         name: "Löschen",
         color: "#333",
@@ -16,7 +16,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     ROAD: {
-        id: 1,
+        id: "ROAD",
         cost: 20,
         name: "Straße",
         color: "#777",
@@ -25,7 +25,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     RES: {
-        id: 2,
+        id: "RES",
         cost: 60,
         name: "Wohnhaus",
         color: "#2ecc71",
@@ -34,7 +34,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     HIGH: {
-        id: 3,
+        id: "HIGH",
         cost: 300,
         name: "Hochhaus",
         color: "#1abc9c",
@@ -43,7 +43,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     COM: {
-        id: 4,
+        id: "COM",
         cost: 150,
         name: "Gewerbe",
         color: "#3498db",
@@ -52,7 +52,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     MALL: {
-        id: 5,
+        id: "MALL",
         cost: 200,
         name: "Mall",
         color: "#f39c12",
@@ -61,7 +61,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     IND: {
-        id: 6,
+        id: "IND",
         cost: 180,
         name: "Industrie",
         color: "#e67e22",
@@ -70,7 +70,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     INDPARK: {
-        id: 7,
+        id: "INDPARK",
         cost: 300,
         name: "Industriepark",
         color: "#d35400",
@@ -79,7 +79,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     PARK: {
-        id: 8,
+        id: "PARK",
         cost: 30,
         name: "Park",
         color: "#27ae60",
@@ -88,7 +88,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     POWER: {
-        id: 9,
+        id: "POWER",
         cost: 220,
         name: "Kraftwerk",
         color: "#f1c40f",
@@ -97,7 +97,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     SOLAR: {
-        id: 10,
+        id: "SOLAR",
         cost: 200,
         name: "Solarpark",
         color: "#f7dc6f",
@@ -106,7 +106,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     SCHOOL: {
-        id: 11,
+        id: "SCHOOL",
         cost: 120,
         name: "Schule",
         color: "#9b59b6",
@@ -115,7 +115,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     HOSPITAL: {
-        id: 12,
+        id: "HOSPITAL",
         cost: 150,
         name: "Krankenhaus",
         color: "#e74c3c",
@@ -124,7 +124,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     AIRPORT: {
-        id: 13,
+        id: "AIRPORT",
         cost: 500,
         name: "Flughafen",
         color: "#95a5a6",
@@ -133,7 +133,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     PORT: {
-        id: 14,
+        id: "PORT",
         cost: 400,
         name: "Hafen",
         color: "#2980b9",
@@ -142,7 +142,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     SUBWAY: {
-        id: 15,
+        id: "SUBWAY",
         cost: 250,
         name: "U-Bahn",
         color: "#bdc3c7",
@@ -151,7 +151,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     RESEARCH: {
-        id: 16,
+        id: "RESEARCH",
         cost: 400,
         name: "Forschung",
         color: "#8e44ad",
@@ -160,7 +160,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     STADIUM: {
-        id: 17,
+        id: "STADIUM",
         cost: 600,
         name: "Stadion",
         color: "#c0392b",
@@ -169,7 +169,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     MUSEUM: {
-        id: 18,
+        id: "MUSEUM",
         cost: 350,
         name: "Museum",
         color: "#d35400",
@@ -178,7 +178,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     POLICE: {
-        id: 19,
+        id: "POLICE",
         cost: 200,
         name: "Polizeistation",
         color: "#34495e",
@@ -187,7 +187,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     FIRE: {
-        id: 20,
+        id: "FIRE",
         cost: 200,
         name: "Feuerwache",
         color: "#e74c3c",
@@ -196,7 +196,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     LIBRARY: {
-        id: 21,
+        id: "LIBRARY",
         cost: 150,
         name: "Bibliothek",
         color: "#f1c40f",
@@ -205,7 +205,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     MARKET: {
-        id: 22,
+        id: "MARKET",
         cost: 250,
         name: "Markt",
         color: "#16a085",
@@ -214,7 +214,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     HOTEL: {
-        id: 23,
+        id: "HOTEL",
         cost: 300,
         name: "Hotel",
         color: "#e67e22",
@@ -223,7 +223,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     FARM: {
-        id: 24,
+        id: "FARM",
         cost: 180,
         name: "Farm",
         color: "#27ae60",
@@ -232,7 +232,7 @@ const ELEMENT = {
         increasePollution: (level) => 0,
     },
     WIND: {
-        id: 25,
+        id: "WIND",
         cost: 250,
         name: "Windpark",
         color: "#7f8c8d",
@@ -249,13 +249,12 @@ let current = ELEMENT.RES.id,
     money = 50.00,
     population = 50,
     pollution = 0,
-    mouseDown = fal,
-    se,
+    mouseDown = false,
     gameOver = false,
     warning = false,
     lastIncomeTime = Date.now(),
     people = [],
-    cars = [, ];
+    cars = [,];
 
 /* --- Init Map --- */
 for (let y = 0; y < grid; y++) {
@@ -278,19 +277,19 @@ map[12][10] = ELEMENT.COM.id;
 map[13][10] = ELEMENT.POWER.id;
 
 /* --- SetType --- */
-function setType(t, ) {
+function setType(t) {
     current = t;
     document.getElementById("current").innerText = ELEMENT[t].name;
-    document.getElementById("cost").innerText = ELEMENT[t].co, st;
+    document.getElementById("cost").innerText = ELEMENT[t].cost;
 }
-setType(current, );
+setType(current,);
 
 /* --- Mouse --- */
 canvas.addEventListener("mousedown", () => mouseDown = true);
-canvas.addEventListener("mouseup", () => mouseDown = fals, e);
+canvas.addEventListener("mouseup", () => mouseDown = false);
 canvas.addEventListener("mouseleave", () => mouseDown = false);
 canvas.addEventListener("mousemove", e => { if (mouseDown) place(e) });
-canvas.addEventListener("click", plac, e);
+canvas.addEventListener("click", place);
 
 function place(e) {
     if (gameOver) return;
@@ -342,8 +341,10 @@ function draw() {
         }
     }
     for (let car of cars) {
-        ctx.fillStyle = "red";
-        ctx.fillRect(car.x * size + size / 4, car.y * size + size / 4, size / 2, size / 2);
+        if (car && car.x && car.y) {
+            ctx.fillStyle = "red";
+            ctx.fillRect(car.x * size + size / 4, car.y * size + size / 4, size / 2, size / 2);
+        }
     }
     for (let p of people) {
         ctx.fillStyle = "#fff";
@@ -430,7 +431,12 @@ function simulate() {
         let d = dir[Math.floor(Math.random() * 4)];
         let nx = c.x + d[0],
             ny = c.y + d[1];
-        if (nx >= 0 && ny >= 0 && nx < grid && ny < grid) { if (map[ny][nx] === ELEMENT.ROAD.id) c.x = nx, c.y = ny; }
+        if (nx >= 0 && ny >= 0 && nx < grid && ny < grid) {
+            if (map[ny][nx] === ELEMENT.ROAD.id) {
+                c.x = nx;
+                c.y = ny;
+            }
+        }
     });
     /* Naturkatastrophen */
     if (Math.random() < 0.0005) {
