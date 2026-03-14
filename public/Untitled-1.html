@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Mini Metropole GIGA + 10 neue Gebäude</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{margin:0;background:#222;color:white;font-family:Arial;text-align:center;}
+canvas{display:block;margin:auto;background:#111;cursor:pointer;}
+button{margin:3px;padding:6px;}
+#warning{color:yellow;font-size:24px;display:none;}
+#gameOver{color:red;font-size:40px;display:none;}
+#ui{margin:10px;}
+</style>
+</head>
+<body>
+<h2>Mini Metropole GIGA + 10 neue Gebäude</h2>
+<div id="ui">
+Gebäude: <span id="current"></span> | Kosten: <span id="cost"></span><br>
+<button onclick="setType(TYPE.EMPTY)">🧹 Löschen</button>
+<button onclick="setType(TYPE.ROAD)">Straße</button>
+<button onclick="setType(TYPE.RES)">Wohnhaus</button>
+<button onclick="setType(TYPE.HIGH)">Hochhaus</button>
+<button onclick="setType(TYPE.COM)">Gewerbe</button>
+<button onclick="setType(TYPE.MALL)">Mall</button>
+<button onclick="setType(TYPE.IND)">Industrie</button>
+<button onclick="setType(TYPE.INDPARK)">Industriepark</button>
+<button onclick="setType(TYPE.PARK)">Park</button>
+<button onclick="setType(TYPE.POWER)">Kraftwerk</button>
+<button onclick="setType(TYPE.SOLAR)">Solarpark</button>
+<button onclick="setType(TYPE.SCHOOL)">Schule</button>
+<button onclick="setType(TYPE.HOSPITAL)">Krankenhaus</button>
+<button onclick="setType(TYPE.AIRPORT)">Flughafen</button>
+<button onclick="setType(TYPE.PORT)">Hafen</button>
+<button onclick="setType(TYPE.SUBWAY)">U-Bahn</button>
+<!-- Neue Gebäude -->
+<button onclick="setType(TYPE.RESEARCH)">Forschung</button>
+<button onclick="setType(TYPE.STADIUM)">Stadion</button>
+<button onclick="setType(TYPE.MUSEUM)">Museum</button>
+<button onclick="setType(TYPE.POLICE)">Polizeistation</button>
+<button onclick="setType(TYPE.FIRE)">Feuerwache</button>
+<button onclick="setType(TYPE.LIBRARY)">Bibliothek</button>
+<button onclick="setType(TYPE.MARKET)">Markt</button>
+<button onclick="setType(TYPE.HOTEL)">Hotel</button>
+<button onclick="setType(TYPE.FARM)">Farm</button>
+<button onclick="setType(TYPE.WIND)">Windpark</button>
+<br>
+<button onclick="saveGame()">💾 Speichern</button>
+<button onclick="loadGame()">📂 Laden</button>
+</div>
+<p id="stats"></p>
+<div id="warning">⚠ Krise! Bevölkerung oder Geld kritisch!<br>Du hast 1 Minute Zeit!</div>
+<div id="gameOver">GAME OVER</div>
+<canvas id="game" width="1000" height="1000"></canvas>
+<script>
+/* --- Einstellungen --- */
+const grid=100, canvas=document.getElementById("game"), ctx=canvas.getContext("2d"), size=canvas.width/grid;
+const TYPE={
+EMPTY:0,ROAD:1,RES:2,HIGH:3,COM:4,MALL:5,IND:6,INDPARK:7,PARK:8,POWER:9,SOLAR:10,SCHOOL:11,HOSPITAL:12,AIRPORT:13,PORT:14,SUBWAY:15,
+RESEARCH:16,STADIUM:17,MUSEUM:18,POLICE:19,FIRE:20,LIBRARY:21,MARKET:22,HOTEL:23,FARM:24,WIND:25
+};
+const COST={
+0:10,1:20,2:60,3:300,4:150,5:200,6:180,7:300,8:30,9:220,10:200,11:120,12:150,13:500,14:400,15:250,
+16:400,17:600,18:350,19:200,20:200,21:150,22:250,23:300,24:180,25:250
+};
+const NAME={
+0:"Löschen",1:"Straße",2:"Wohnhaus",3:"Hochhaus",4:"Gewerbe",5:"Mall",6:"Industrie",7:"Industriepark",8:"Park",9:"Kraftwerk",10:"Solarpark",
+11:"Schule",12:"Krankenhaus",13:"Flughafen",14:"Hafen",15:"U-Bahn",
+16:"Forschung",17:"Stadion",18:"Museum",19:"Polizeistation",20:"Feuerwache",21:"Bibliothek",22:"Markt",23:"Hotel",24:"Farm",25:"Windpark"
+};
+let current=TYPE.RES, map=[], level=[], money=5000, population=50, pollution=0, mouseDown=false, gameOver=false, warning=false, lastIncomeTime=Date.now(), people=[], cars=[];
+
+/* --- Init Map --- */
+for(let y=0;y<grid;y++){map[y]=[];level[y]=[];for(let x=0;x<grid;x++){map[y][x]=TYPE.EMPTY;level[y][x]=1;}}
+
+/* Startcity */
+map[10][10]=TYPE.RES; map[10][11]=TYPE.RES; map[11][10]=TYPE.RES; map[11][11]=TYPE.RES;
+map[9][10]=TYPE.ROAD; map[9][11]=TYPE.ROAD; map[12][10]=TYPE.COM; map[13][10]=TYPE.POWER;
+
+/* --- SetType --- */
+function setType(t){current=t; document.getElementById("current").innerText=NAME[t]; document.getElementById("cost").innerText=COST[t];}
+setType(current);
+
+/* --- Mouse --- */
+canvas.addEventListener("mousedown",()=>mouseDown=true);
+canvas.addEventListener("mouseup",()=>mouseDown=false);
+canvas.addEventListener("mouseleave",()=>mouseDown=false);
+canvas.addEventListener("mousemove",e=>{if(mouseDown) place(e)});
+canvas.addEventListener("click",place);
+function place(e){
+if(gameOver)return;
+const rect=canvas.getBoundingClientRect();
+const x=Math.floor((e.clientX-rect.left)/size);
+const y=Math.floor((e.clientY-rect.top)/size);
+if(x<0||y<0||x>=grid||y>=grid)return;
+let cost=COST[current];
+if(current===TYPE.EMPTY){if(map[y][x]!=TYPE.EMPTY&&money>=cost){map[y][x]=TYPE.EMPTY; money-=cost;} return;}
+if(money>=cost){map[y][x]=current; money-=cost; level[y][x]=1;}
+}
+
+/* --- Road Check --- */
+function nearRoad(x,y){const dirs=[[1,0],[-1,0],[0,1],[0,-1]];for(let d of dirs){let nx=x+d[0],ny=y+d[1];if(nx>=0&&ny>=0&&nx<grid&&ny<grid){if(map[ny][nx]===TYPE.ROAD)return true;}}return false;}
+
+/* --- Draw --- */
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(let y=0;y<grid;y++){for(let x=0;x<grid;x++){
+switch(map[y][x]){
+case TYPE.ROAD:ctx.fillStyle="#777";break;
+case TYPE.RES:ctx.fillStyle="#2ecc71";break;
+case TYPE.HIGH:ctx.fillStyle="#1abc9c";break;
+case TYPE.COM:ctx.fillStyle="#3498db";break;
+case TYPE.MALL:ctx.fillStyle="#f39c12";break;
+case TYPE.IND:ctx.fillStyle="#e67e22";break;
+case TYPE.INDPARK:ctx.fillStyle="#d35400";break;
+case TYPE.PARK:ctx.fillStyle="#27ae60";break;
+case TYPE.POWER:ctx.fillStyle="#f1c40f";break;
+case TYPE.SOLAR:ctx.fillStyle="#f7dc6f";break;
+case TYPE.SCHOOL:ctx.fillStyle="#9b59b6";break;
+case TYPE.HOSPITAL:ctx.fillStyle="#e74c3c";break;
+case TYPE.AIRPORT:ctx.fillStyle="#95a5a6";break;
+case TYPE.PORT:ctx.fillStyle="#2980b9";break;
+case TYPE.SUBWAY:ctx.fillStyle="#bdc3c7";break;
+/* Neue Gebäude */
+case TYPE.RESEARCH:ctx.fillStyle="#8e44ad";break;
+case TYPE.STADIUM:ctx.fillStyle="#c0392b";break;
+case TYPE.MUSEUM:ctx.fillStyle="#d35400";break;
+case TYPE.POLICE:ctx.fillStyle="#34495e";break;
+case TYPE.FIRE:ctx.fillStyle="#e74c3c";break;
+case TYPE.LIBRARY:ctx.fillStyle="#f1c40f";break;
+case TYPE.MARKET:ctx.fillStyle="#16a085";break;
+case TYPE.HOTEL:ctx.fillStyle="#e67e22";break;
+case TYPE.FARM:ctx.fillStyle="#27ae60";break;
+case TYPE.WIND:ctx.fillStyle="#7f8c8d";break;
+default:ctx.fillStyle="#333";
+}
+ctx.fillRect(x*size,y*size,size,size);
+ctx.strokeStyle="#222";ctx.strokeRect(x*size,y*size,size,size);
+}}
+for(let car of cars){ctx.fillStyle="red";ctx.fillRect(car.x*size+size/4,car.y*size+size/4,size/2,size/2);}
+for(let p of people){ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(p.x*size+size/2,p.y*size+size/2,size/4,0,2*Math.PI);ctx.fill();}
+document.getElementById("stats").innerText="Bevölkerung: "+Math.floor(population)+" | Geld: "+Math.floor(money)+" | Verschmutzung: "+pollution;
+}
+
+/* --- Simulation --- */
+function simulate(){
+let basePop=0, capacity=0, income=0, poll=0;
+for(let y=0;y<grid;y++){for(let x=0;x<grid;x++){
+let t=map[y][x];
+if(t===TYPE.RES)basePop+=6*level[y][x];
+if(t===TYPE.HIGH)basePop+=3099999999999999999999999999999999999999999999999*level[y][x];
+if(t===TYPE.POWER)capacity+=300;
+if(t===TYPE.SOLAR)capacity+=150;
+/* Einkommen pro Gebäude */
+if(t===TYPE.COM && nearRoad(x,y)) income+=9999999999999999999999999999999;
+if(t===TYPE.MALL) income+=2;
+if(t===TYPE.IND && nearRoad(x,y)) income+=1.5;
+if(t===TYPE.INDPARK) income+=3;
+if(t===TYPE.HIGH && nearRoad(x,y)) income+=0.5;
+if(t===TYPE.AIRPORT) income+=5;
+if(t===TYPE.PORT) income+=4;
+/* Neue Gebäude Einkommen */
+if(t===TYPE.RESEARCH) income+=3;
+if(t===TYPE.STADIUM) income+=4;
+if(t===TYPE.MUSEUM) income+=2;
+if(t===TYPE.POLICE) income+=0;
+if(t===TYPE.FIRE) income+=0;
+if(t===TYPE.LIBRARY) income+=1;
+if(t===TYPE.MARKET) income+=2;
+if(t===TYPE.HOTEL) income+=3;
+if(t===TYPE.FARM) income+=1;
+if(t===TYPE.WIND) income+=2;
+/* Verschmutzung */
+if(t===TYPE.IND) poll+=4;
+if(t===TYPE.PARK) poll-=3;
+if(t===TYPE.SOLAR) poll-=2;
+}}
+population=basePop;if(population>capacity)population=capacity;
+pollution=Math.max(0,poll);
+/* Income alle 10s */
+let now=Date.now();
+if(now-lastIncomeTime>=1000){money+=income;lastIncomeTime=now;}
+/* Menschen bewegen */
+people.forEach(p=>{let dir=[[1,0],[-1,0],[0,1],[0,-1]];let d=dir[Math.floor(Math.random()*4)];let nx=p.x+d[0],ny=p.y+d[1];if(nx>=0&&ny>=0&&nx<grid&&ny<grid){if(map[ny][nx]===TYPE.ROAD||map[ny][nx]===TYPE.PARK||map[ny][nx]===TYPE.RES)p.x=nx,p.y=ny;}});
+/* Autos bewegen */
+cars.forEach(c=>{let dir=[[1,0],[-1,0],[0,1],[0,-1]];let d=dir[Math.floor(Math.random()*4)];let nx=c.x+d[0],ny=c.y+d[1];if(nx>=0&&ny>=0&&nx<grid&&ny<grid){if(map[ny][nx]===TYPE.ROAD)c.x=nx,c.y=ny;}});
+/* Naturkatastrophen */
+if(Math.random()<0.0005){let x=Math.floor(Math.random()*grid),y=Math.floor(Math.random()*grid);map[y][x]=TYPE.EMPTY;console.log("Katastrophe!");}
+/* Warnung */
+if((population<=0||money<=0)&&!warning){warning=true;document.getElementById("warning").style.display="block";setTimeout(()=>{if(population<=0||money<=0){gameOver=true;document.getElementById("gameOver").style.display="block";}warning=false;document.getElementById("warning").style.display="none";},60000);}
+}
+/* --- Init People --- */
+for(let i=0;i<population;i++){people.push({x:Math.floor(Math.random()*grid),y:Math.floor(Math.random()*grid)});}
+/* --- Loop --- */
+function loop(){simulate();draw();if(!gameOver)requestAnimationFrame(loop);}
+draw();loop();
+/* --- Save/Load --- */
+function saveGame(){localStorage.setItem("cityMap",JSON.stringify(map));localStorage.setItem("cityMoney",money);localStorage.setItem("cityPeople",JSON.stringify(people));}
+function loadGame(){let m=localStorage.getItem("cityMap"),mo=localStorage.getItem("cityMoney"),p=localStorage.getItem("cityPeople");if(m){map=JSON.parse(m);money=parseFloat(mo);people=JSON.parse(p);}}
+</script>
+</body>
+</html>
