@@ -396,33 +396,7 @@ function simulate() {
             basePop += ELEMENT[type].increasePopulation(level[y][x]);
             capacity += ELEMENT[type].increaseCapacity(level[y][x]);
 
-            // if (t === ELEMENT.RES.id) basePop += 6 * level[y][x];
-            // if (t === ELEMENT.HIGH.id) basePop += 3099999999999999999999999999999999999999999999999 * level[y][x];
-            // if (t === ELEMENT.POWER.id) capacity += 300;
-            // if (t === ELEMENT.SOLAR.id) capacity += 150;
-            // /* Einkommen pro Gebäude */
-            // if (t === ELEMENT.COM.id && nearRoad(x, y)) income += 9999999999999999999999999999999;
-            // if (t === ELEMENT.MALL.id) income += 2;
-            // if (t === ELEMENT.IND.id && nearRoad(x, y)) income += 1.5;
-            // if (t === ELEMENT.INDPARK.id) income += 3;
-            // if (t === ELEMENT.HIGH.id && nearRoad(x, y)) income += 0.5;
-            // if (t === ELEMENT.AIRPORT.id) income += 5;
-            // if (t === ELEMENT.PORT.id) income += 4;
-            // /* Neue Gebäude Einkommen */
-            // if (t === ELEMENT.RESEARCH) income += 3;
-            // if (t === ELEMENT.STADIUM.id) income += 4;
-            // if (t === ELEMENT.MUSEUM.id) income += 2;
-            // if (t === ELEMENT.POLICE.id) income += 0;
-            // if (t === ELEMENT.FIRE.id) income += 0;
-            // if (t === ELEMENT.LIBRARY.id) income += 1;
-            // if (t === ELEMENT.MARKET.id) income += 2;
-            // if (t === ELEMENT.HOTEL.id) income += 3;
-            // if (t === ELEMENT.FARM.id) income += 1;
-            // if (t === ELEMENT.WIND.id) income += 2;
-            // /* Verschmutzung */
-            // if (t === ELEMENT.IND.id) poll += 4;
-            // if (t === ELEMENT.PARK.id) poll -= 3;
-            // if (t === ELEMENT.SOLAR.id) poll -= 2;
+
         }
     }
     population = basePop;
@@ -465,8 +439,14 @@ function simulate() {
             }
         }
     });
+    if (cars.length > 300) {
+
+        c.x += 0
+        c.y += 0
+
+    }
     /* Naturkatastrophen */
-    if (Math.random() < 0.0005) {
+    if (Math.random() < 0.000005) {
         let x = Math.floor(Math.random() * grid),
             y = Math.floor(Math.random() * grid);
         map[y][x] = ELEMENT.EMPTY.id;
