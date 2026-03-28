@@ -1,3 +1,10 @@
+const DIRECTION = {
+    EAST: [1, 0],
+    WEST: [-1, 0],
+    SOUTH: [0, -1],
+    NORTH: [0, 1]
+};
+
 /**
  * EntityManager class - Manages game entities (people and cars)
  */
@@ -23,6 +30,20 @@ class EntityManager {
             this.people.push({
                 x: Math.floor(Math.random() * this.gameMap.width),
                 y: Math.floor(Math.random() * this.gameMap.height)
+            });
+        }
+    }
+
+    spawnCars(count) {
+        this.cars = [];
+        const roads = this.gameMap.getTilesByType(this.elements.ROAD.id);
+        const maxCars = Math.max(roads.length / 4, 2)
+        for (let i = 0; i < maxCars; i++) {
+            let idx = Math.floor(Math.random() * roads.length);
+            this.cars.push({
+                x: roads[idx].x,
+                y: roads[idx].y,
+                dir: "EAST"
             });
         }
     }
@@ -72,19 +93,16 @@ class EntityManager {
      * Move cars randomly on roads
      */
     moveCars() {
-        const directions = [
-            [1, 0], [-1, 0], [0, 1], [0, -1]
-        ];
-
         for (const c of this.cars) {
-            const dir = directions[Math.floor(Math.random() * 4)];
-            const nx = c.x + dir[0];
-            const ny = c.y + dir[1];
+            const key = Object.keys(DIRECTION)[Math.floor(Math.random() * 4)];
+            const nx = c.x + DIRECTION[key][0];
+            const ny = c.y + DIRECTION[key][1];
 
             if (this.gameMap.isValidPosition(nx, ny)) {
                 if (this.gameMap.getTile(nx, ny) === this.elements.ROAD.id) {
                     c.x = nx;
                     c.y = ny;
+                    c.dir = key;
                 }
             }
         }
@@ -94,7 +112,7 @@ class EntityManager {
      * Update all entities (move people and cars)
      */
     update() {
-        this.movePeople();
+        // this.movePeople();
         this.moveCars();
     }
 

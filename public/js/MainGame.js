@@ -75,7 +75,8 @@ class MainGame {
 
         // Initialize entity manager
         this.entityManager = new EntityManager(this.gameMap, ELEMENT);
-        this.entityManager.spawnPeople(this.state.population);
+        // this.entityManager.spawnPeople(this.state.population);
+        this.entityManager.spawnCars(this.state.population * 0.5);
 
         // Initialize input handler
         this.inputHandler = new InputHandler(this.canvas, this.camera, { panSpeed: this.config.panSpeed });
@@ -95,20 +96,27 @@ class MainGame {
     preloadImages() {
         return new Promise((resolve) => {
             let loaded = 0;
-            const total = Object.keys(ELEMENT).length;
+            const total = Object.keys(ELEMENT).length + Object.keys(DIRECTION).length;
+
+            const callback = () => {
+                loaded++;
+                if (loaded === total) resolve();
+            };
+
+            for (const key in DIRECTION) {
+                const img = new Image();
+                img.onload = callback;
+                img.onerror = callback;
+                img.src = `img/car_${key}.png`;
+                this.loadedImages[`car_${key}`] = img;
+            }
 
             for (const key in ELEMENT) {
                 const elem = ELEMENT[key];
                 if (elem.image) {
                     const img = new Image();
-                    img.onload = () => {
-                        loaded++;
-                        if (loaded === total) resolve();
-                    };
-                    img.onerror = () => {
-                        loaded++;
-                        if (loaded === total) resolve();
-                    };
+                    img.onload = callback;
+                    img.onerror = callback;
                     img.src = elem.image;
                     this.loadedImages[key] = img;
                 } else {

@@ -76,15 +76,23 @@ class Renderer {
      * @param {number} tileSize - Size of each tile in pixels
      */
     drawCars(cars, tileSize) {
-        this.ctx.fillStyle = "red";
+        // this.ctx.fillStyle = "red";
         for (const car of cars) {
             if (car && car.x !== undefined && car.y !== undefined) {
-                this.ctx.fillRect(
-                    car.x * tileSize + tileSize / 4,
-                    car.y * tileSize + tileSize / 4,
-                    tileSize / 2,
-                    tileSize / 2
-                );
+
+                // Draw image if available
+                if (car.dir && this.loadedImages[`car_${car.dir}`]) {
+                    const img = this.loadedImages[`car_${car.dir}`];
+                    if (img.complete) {
+                        this.ctx.drawImage(
+                            img,
+                            car.x * tileSize + tileSize / 4,
+                            car.y * tileSize + tileSize / 4,
+                            tileSize / 2,
+                            tileSize / 2
+                        );
+                    }
+                }
             }
         }
     }
