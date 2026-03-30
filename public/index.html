@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <title>Metro Polia</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>-->
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             background: #222;
             color: white;
@@ -22,12 +23,13 @@
             align-items: center;
             padding: 20px;
         }
-        
+
         .container {
-            max-width: 800px;
+            max-width: 960px;
             width: 100%;
+            display: flex;
         }
-        
+
         .logo {
             text-align: center;
             margin-bottom: 40px;
@@ -36,7 +38,7 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        
+
         .logo h1 {
             font-size: 4rem;
             font-weight: bold;
@@ -44,12 +46,12 @@
             letter-spacing: 4px;
             margin-bottom: 10px;
         }
-        
+
         .logo .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
         }
-        
+
         .qr-section {
             background: #333;
             border-radius: 15px;
@@ -58,80 +60,81 @@
             margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .qr-section h2 {
             margin-bottom: 20px;
             color: #2ecc71;
         }
-        
+
         .qr-section img {
             border: 5px solid white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         .qr-section p {
             margin-top: 15px;
             color: #aaa;
             font-size: 0.9rem;
         }
-        
+
         .highscores-section {
+            margin-left: 36px;
             background: #333;
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .highscores-section h2 {
             text-align: center;
             margin-bottom: 25px;
             color: #f39c12;
             font-size: 2rem;
         }
-        
+
         .highscores-table {
             width: 100%;
             border-collapse: collapse;
         }
-        
+
         .highscores-table thead {
             background: #444;
         }
-        
+
         .highscores-table th {
             padding: 15px;
             text-align: left;
             font-weight: bold;
             color: #2ecc71;
         }
-        
+
         .highscores-table td {
             padding: 12px 15px;
             border-bottom: 1px solid #444;
         }
-        
+
         .highscores-table tr:hover {
             background: #3a3a3a;
         }
-        
+
         .highscores-table tr:last-child td {
             border-bottom: none;
         }
-        
+
         .rank {
             font-weight: bold;
             color: #f39c12;
             width: 60px;
         }
-        
+
         .no-scores {
             text-align: center;
             color: #888;
             padding: 30px;
             font-style: italic;
         }
-        
+
         .play-button {
             display: block;
             width: 200px;
@@ -147,31 +150,35 @@
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
         }
-        
+
         .play-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
         }
-        
+
         @media (max-width: 600px) {
             .logo h1 {
                 font-size: 2.5rem;
             }
+
             .highscores-table th,
             .highscores-table td {
                 padding: 10px;
                 font-size: 0.9rem;
             }
+
             .rank {
                 width: 40px;
             }
         }
     </style>
     <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kuzzle-sdk@7/dist/kuzzle.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
+<div class="container">
+    <section class="">
         <div class="logo">
             <img src="img/metropolia.png" height="136" alt="MetroPolia Logo">
             <div class="subtitle">🏙️ Baue deine Traumstadt 🏙️</div>
@@ -183,122 +190,76 @@
             <p>Oder klicke unten um direkt zu starten</p>
             <a href="game.html" class="play-button">▶ SPIELEN</a>
         </div>
+    </section>
 
-        <div class="highscores-section">
-            <h2>🏆 Bestenliste</h2>
-            <table class="highscores-table">
-                <thead>
-                    <tr>
-                        <th class="rank">#</th>
-                        <th>Bevölkerung</th>
-                        <th>Geld</th>
-                        <th>Datum</th>
-                    </tr>
-                </thead>
-                <tbody id="highscores-body">
-                </tbody>
-            </table>
-        </div>
+    <div class="highscores-section">
+        <h2>🏆 Bestenliste</h2>
+        <table class="highscores-table">
+            <thead>
+            <tr>
+                <th class="rank">#</th>
+                <th>Spieler</th>
+                <th>Bevölkerung</th>
+                <th>Geld</th>
+                <th>Datum</th>
+            </tr>
+            </thead>
+            <tbody id="highscores-body">
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <script>
-        // Get the current URL and construct the game URL
-        const gameUrl = window.location.href.replace(/\/$/, '') + '/game.html';
+<script src="js/kuzzle.js"></script>
+<script>
+    (function () {
+        'use client';
 
-        // Generate QR code using QR Server API
-        const qrCode = new QRCodeStyling({
-            width: 200,
-            height: 200,
-            type: "canvas",
-            data: gameUrl,
-            // image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-            dotsOptions: {
-                type: "extra-rounded",
-                color: "#6a1a4c",
-                roundSize: true
-            },
-            cornersSquareOptions: {
-                type: "extra-rounded",
-                color: "#000000"
-            },
-            backgroundOptions: {
-                color: "#e9ebee",
-            },
-            imageOptions: {
-                crossOrigin: "anonymous",
-                margin: 20
-            }
-        });
-
-        qrCode.append(document.getElementById('qr-code'));
-
-        // Highscores management
-        const HIGHSCORES_KEY = 'metropolia_highscores';
-        const MAX_HIGHSCORES = 10;
-
-        // Load highscores from localStorage
-        function loadHighscores() {
-            const data = localStorage.getItem(HIGHSCORES_KEY);
-            return data ? JSON.parse(data) : [];
+        /**
+         * Get the URL for the game page based on the current location.
+         */
+        function getGameUrl() {
+            return window.location.href.replace(/\/$/, '') + '/game.html';
         }
 
-        // Save highscores to localStorage
-        function saveHighscores(highscores) {
-            localStorage.setItem(HIGHSCORES_KEY, JSON.stringify(highscores));
-        }
-
-        // Add a new highscore
-        function addHighscore(population, money) {
-            const highscores = loadHighscores();
-            const score = {
-                population: population,
-                money: money,
-                date: new Date().toLocaleDateString('de-DE', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                }),
-                timestamp: Date.now()
-            };
-
-            // Sort by population (primary) and money (secondary)
-            highscores.push(score);
-            highscores.sort((a, b) => {
-                if (b.population !== a.population) {
-                    return b.population - a.population;
+        /**
+         * Generate a QR code for the game URL and display it on the page.
+         */
+        function generateQrCode() {
+            // Generate QR code using QR Server API
+            const qrCode = new QRCodeStyling({
+                width: 200,
+                height: 200,
+                type: "canvas",
+                data: getGameUrl(),
+                // image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+                dotsOptions: {
+                    type: "extra-rounded",
+                    color: "#6a1a4c",
+                    roundSize: true
+                },
+                cornersSquareOptions: {
+                    type: "extra-rounded",
+                    color: "#000000"
+                },
+                backgroundOptions: {
+                    color: "#e9ebee",
+                },
+                imageOptions: {
+                    crossOrigin: "anonymous",
+                    margin: 20
                 }
-                return b.money - a.money;
             });
 
-            // Keep only top scores
-            const topScores = highscores.slice(0, MAX_HIGHSCORES);
-            saveHighscores(topScores);
-            return topScores;
+            qrCode.append(document.getElementById('qr-code'));
         }
 
-        // Display highscores in the table
-        function displayHighscores() {
-            const highscores = loadHighscores();
-            const tbody = document.getElementById('highscores-body');
-
-            if (highscores.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="no-scores">Noch keine Einträge. Spiele jetzt und sei der Erste!</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = highscores.map((score, index) => `
-                <tr>
-                    <td class="rank">${index + 1}</td>
-                    <td>${score.population.toLocaleString('de-DE')}</td>
-                    <td>${score.money.toLocaleString('de-DE')} €</td>
-                    <td>${score.date}</td>
-                </tr>
-            `).join('');
-        }
-
-        // Initialize
-        displayHighscores();
-    </script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize scores....
+            generateQrCode();
+        })
+    })();
+</script>
 </body>
 
 </html>
