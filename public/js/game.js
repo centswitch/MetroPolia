@@ -86,18 +86,6 @@ const COMMERCIAL = {
     increasePollution: () => 0,
 };
 
-const MALL = {
-    id: "MALL",
-    cost: 200,
-    name: "Mall",
-    color: "#f39c12",
-    category: "commercial",
-    calculateIncome: () => 4,
-    increasePopulation: () => 0,
-    increaseCapacity: () => 0,
-    increasePollution: () => 4,
-};
-
 const MARKET = {
     id: "MARKET",
     cost: 250,
@@ -349,7 +337,6 @@ const ELEMENT = {
     RES: RESIDENTIAL,
     HIGH: HIGHRISE,
     COM: COMMERCIAL,
-    MALL,
     IND: INDUSTRY,
     INDPARK: INDUSTRIAL_PARK,
     PARK,
@@ -386,14 +373,14 @@ const CONFIG = {
     INITIAL_POPULATION: 50,
     START_CITY: {
         buildings: [
-            {x: 10, y: 10, type: RESIDENTIAL.id},
-            {x: 11, y: 10, type: RESIDENTIAL.id},
-            {x: 10, y: 11, type: RESIDENTIAL.id},
-            {x: 11, y: 11, type: RESIDENTIAL.id},
-            {x: 10, y: 9, type: ROAD.id},
-            {x: 11, y: 9, type: ROAD.id},
-            {x: 10, y: 12, type: COMMERCIAL.id},
-            {x: 10, y: 13, type: POWER_PLANT.id},
+            { x: 10, y: 10, type: RESIDENTIAL.id },
+            { x: 11, y: 10, type: RESIDENTIAL.id },
+            { x: 10, y: 11, type: RESIDENTIAL.id },
+            { x: 11, y: 11, type: RESIDENTIAL.id },
+            { x: 10, y: 9, type: ROAD.id },
+            { x: 11, y: 9, type: ROAD.id },
+            { x: 10, y: 12, type: COMMERCIAL.id },
+            { x: 10, y: 13, type: POWER_PLANT.id },
         ]
     }
 };
@@ -423,8 +410,8 @@ const ctx = canvas.getContext("2d");
 const tileSize = canvas.width / CONFIG.GRID_SIZE;
 
 let currentBuildingType = ELEMENT.RES.id;
-let map = [];              // Die Spielkarte
-let level = [];            // Gebäudelevel
+let map = []; // Die Spielkarte
+let level = []; // Gebäudelevel
 let money = CONFIG.INITIAL_MONEY;
 let population = CONFIG.INITIAL_POPULATION;
 let pollution = 0;
@@ -483,7 +470,7 @@ function initCars() {
     for (let y = 0; y < CONFIG.GRID_SIZE; y++) {
         for (let x = 0; x < CONFIG.GRID_SIZE; x++) {
             if (map[y][x] === ROAD.id) {
-                roads.push({x, y, type: ROAD.id});
+                roads.push({ x, y, type: ROAD.id });
             }
         }
     }
