@@ -123,13 +123,6 @@ Wenn du die Krise nicht löst, ist **Game Over**! 😢
 
 ---
 
-## 💾 Speichern und Laden
-
-### Spiel speichern
-Klicke auf den **💾 Speichern**-Button im Spiel. Deine Stadt wird im Browser gespeichert.
-
-### Spiel laden
-Klicke auf den **📂 Laden**-Button im Spiel, um deine gespeicherte Stadt wiederherzustellen.
 
 ---
 

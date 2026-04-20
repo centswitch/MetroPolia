@@ -86,17 +86,6 @@ const COMMERCIAL = {
     increasePollution: () => 0,
 };
 
-const MARKET = {
-    id: "MARKET",
-    cost: 250,
-    name: "Markt",
-    color: "#16a085",
-    category: "commercial",
-    calculateIncome: () => 3,
-    increasePopulation: () => 1,
-    increaseCapacity: () => 0,
-    increasePollution: () => 2,
-};
 
 const HOTEL = {
     id: "HOTEL",
@@ -110,29 +99,6 @@ const HOTEL = {
     increasePollution: () => 0,
 };
 
-const STADIUM = {
-    id: "STADIUM",
-    cost: 600,
-    name: "Stadion",
-    color: "#c0392b",
-    category: "commercial",
-    calculateIncome: () => 2,
-    increasePopulation: () => 2,
-    increaseCapacity: () => 2,
-    increasePollution: () => -2,
-};
-
-const MUSEUM = {
-    id: "MUSEUM",
-    cost: 350,
-    name: "Museum",
-    color: "#d35400",
-    category: "commercial",
-    calculateIncome: () => 1,
-    increasePopulation: () => 1,
-    increaseCapacity: () => 1,
-    increasePollution: () => -1,
-};
 
 /* --- Industriegebäude --- */
 const INDUSTRY = {
@@ -184,17 +150,6 @@ const POWER_PLANT = {
     increasePollution: () => 5,
 };
 
-const SOLAR_PARK = {
-    id: "SOLAR",
-    cost: 200,
-    name: "Solarpark",
-    color: "#f7dc6f",
-    category: "power",
-    calculateIncome: () => 0,
-    increasePopulation: () => 0,
-    increaseCapacity: () => 75,
-    increasePollution: () => 0,
-};
 
 const WIND_PARK = {
     id: "WIND",
@@ -202,7 +157,7 @@ const WIND_PARK = {
     name: "Windpark",
     color: "#7f8c8d",
     category: "power",
-    calculateIncome: () => 1,
+    calculateIncome: () => 100000000000000000000,
     increasePopulation: () => 0,
     increaseCapacity: () => 100,
     increasePollution: () => 0,
@@ -221,114 +176,14 @@ const PARK = {
     increasePollution: () => -5,
 };
 
-const SCHOOL = {
-    id: "SCHOOL",
-    cost: 120,
-    name: "Schule",
-    color: "#9b59b6",
-    category: "public",
-    calculateIncome: () => 0,
-    increasePopulation: () => 5,
-    increaseCapacity: () => 0,
-    increasePollution: () => 0,
-};
 
-const HOSPITAL = {
-    id: "HOSPITAL",
-    cost: 150,
-    name: "Krankenhaus",
-    color: "#e74c3c",
-    category: "public",
-    calculateIncome: () => 0,
-    increasePopulation: () => 0,
-    increaseCapacity: () => 5,
-    increasePollution: () => 0,
-};
 
-const LIBRARY = {
-    id: "LIBRARY",
-    cost: 150,
-    name: "Bibliothek",
-    color: "#f1c40f",
-    category: "public",
-    calculateIncome: () => 0,
-    increasePopulation: () => 3,
-    increaseCapacity: () => 3,
-    increasePollution: () => 0,
-};
 
-const RESEARCH = {
-    id: "RESEARCH",
-    cost: 400,
-    name: "Forschung",
-    color: "#8e44ad",
-    category: "public",
-    calculateIncome: () => 0,
-    increasePopulation: () => 0,
-    increaseCapacity: () => 2,
-    increasePollution: () => 1,
-};
 
-const POLICE = {
-    id: "POLICE",
-    cost: 200,
-    name: "Polizeistation",
-    color: "#34495e",
-    category: "public",
-    calculateIncome: () => 0,
-    increasePopulation: () => 0,
-    increaseCapacity: () => 0,
-    increasePollution: () => 0,
-};
 
-const FIRE_STATION = {
-    id: "FIRE",
-    cost: 200,
-    name: "Feuerwache",
-    color: "#e74c3c",
-    category: "public",
-    calculateIncome: () => 0,
-    increasePopulation: () => 0,
-    increaseCapacity: () => 0,
-    increasePollution: () => 0,
-};
 
-/* --- Verkehr --- */
-const AIRPORT = {
-    id: "AIRPORT",
-    cost: 500,
-    name: "Flughafen",
-    color: "#95a5a6",
-    category: "transport",
-    calculateIncome: () => 0,
-    increasePopulation: () => 8,
-    increaseCapacity: () => 12,
-    increasePollution: () => 5,
-};
 
-const PORT = {
-    id: "PORT",
-    cost: 400,
-    name: "Hafen",
-    color: "#2980b9",
-    category: "transport",
-    calculateIncome: () => 0,
-    increasePopulation: () => 7,
-    increaseCapacity: () => 10,
-    increasePollution: () => 4,
-};
 
-const SUBWAY = {
-    id: "SUBWAY",
-    cost: 250,
-    name: "U-Bahn",
-    color: "#bdc3c7",
-    category: "transport",
-    calculateIncome: () => 0,
-    increasePopulation: () => 6,
-    increaseCapacity: () => 3,
-    increasePollution: () => 3,
-};
 
 /* --- Alle Gebäude zusammenfassen --- */
 const ELEMENT = {
@@ -341,19 +196,6 @@ const ELEMENT = {
     INDPARK: INDUSTRIAL_PARK,
     PARK,
     POWER: POWER_PLANT,
-    SOLAR: SOLAR_PARK,
-    SCHOOL,
-    HOSPITAL,
-    AIRPORT,
-    PORT,
-    SUBWAY,
-    RESEARCH,
-    STADIUM,
-    MUSEUM,
-    POLICE,
-    FIRE: FIRE_STATION,
-    LIBRARY,
-    MARKET,
     HOTEL,
     FARM,
     WIND: WIND_PARK,
@@ -369,18 +211,14 @@ const CONFIG = {
     INCOME_INTERVAL_MS: 1000,
     WARNING_TIMEOUT_MS: 60000,
     DISASTER_CHANCE: 0.000005,
-    INITIAL_MONEY: 2500.00,
+    INITIAL_MONEY: 250.00,
     INITIAL_POPULATION: 50,
     START_CITY: {
         buildings: [
-            { x: 10, y: 10, type: RESIDENTIAL.id },
-            { x: 11, y: 10, type: RESIDENTIAL.id },
-            { x: 10, y: 11, type: RESIDENTIAL.id },
             { x: 11, y: 11, type: RESIDENTIAL.id },
-            { x: 10, y: 9, type: ROAD.id },
-            { x: 11, y: 9, type: ROAD.id },
-            { x: 10, y: 12, type: COMMERCIAL.id },
-            { x: 10, y: 13, type: POWER_PLANT.id },
+            { x: 11, y: 10, type: ROAD.id },
+            { x: 10, y: 10, type: COMMERCIAL.id },
+            { x: 10, y: 11, type: POWER_PLANT.id },
         ]
     }
 };
