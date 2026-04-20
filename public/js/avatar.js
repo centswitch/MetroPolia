@@ -20,7 +20,6 @@ const NICKNAME_CONFIG = {
         '🥳', '👻', '👽', '🤖', '🎃', '🤠', '🥺',
         '😍', '😶‍🌫️', '😤', '😡', '😭', '😢', '😥',
         '😓', '😴', '😷', '🤒', '🤕', '🤧', '🥶',
-        '😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃😁🥲🥲😃'
     ],
 
     // Farben
@@ -30,7 +29,7 @@ const NICKNAME_CONFIG = {
         'Orange', 'Lila', 'Rosa', 'Türkis',
         'Weiß', 'Schwarz', 'Braun',
         'Himmelblaue', 'Smaragd', 'Rubin',
-        'Saphir', 'Diamant', 'smaragdbläulichesgrünbraunkristalametystsmaragdbläulichesgrünbraunkristalametystsmaragdbläulichesgrünbraunkristalametystsmaragdbläulichesgrünbraunkristalametyst'
+        'Saphir', 'Diamant',
     ],
 
     // Tier-Namen
@@ -40,7 +39,7 @@ const NICKNAME_CONFIG = {
         'Delphin', 'Hai', 'Oktopus', 'Dino', 'Schildkröte', 'Papagei',
         'Delfin', 'Flamingo', 'Biene', 'Marienkäfer', 'Skorpion',
         'Schlange', 'Echse', 'Elefant', 'Giraffe', 'Zebra',
-        'Pinguin', 'Känguru', 'Koala', 'Nashorn', 'jgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfgjgqrzfevrzgheuzfhgrbhdfgbvjhdfgcbejdhfgredfhjdfbrdhfg'
+        'Pinguin', 'Känguru', 'Koala', 'Nashorn',
     ],
 
     // Positive Eigenschaften
@@ -51,7 +50,7 @@ const NICKNAME_CONFIG = {
         'Legendär', 'Mächtig', 'Heldenhaft', 'Großartig',
         'Fantastisch', 'Wunderbar', 'Ruhig', 'Friedlich',
         'Energiegeladen', 'Cheerful', 'Fröhlich', 'Glücklich',
-        'Optimistisch', 'Kreativ', 'Abenteuerlustig', 'ich hab so hunga und durs hilfe ich hab so hunger und durst mit cola wüürde es besser gehen und megggggggggees is sooooooooooooooooooo cooooooooool . com'
+        'Optimistisch', 'Kreativ', 'Abenteuerlustig',
     ],
 
     // Min/Max für Zufallszahl

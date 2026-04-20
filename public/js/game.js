@@ -54,6 +54,7 @@ const RESIDENTIAL = {
     cost: 60,
     name: "Wohnhaus",
     color: "#2ecc71",
+    image: "img/elemente/Zeichnung_Seite 10.png",
     category: "residential",
     calculateIncome: () => 0,
     increasePopulation: (level) => level * 6,
@@ -67,6 +68,7 @@ const HIGHRISE = {
     name: "Hochhaus",
     color: "#1abc9c",
     category: "residential",
+    image: "img/elemente/Zeichnung_Seite 5.png",
     calculateIncome: () => 0,
     increasePopulation: () => 20,
     increaseCapacity: () => 0,
@@ -176,15 +178,6 @@ const PARK = {
     increasePollution: () => -5,
 };
 
-
-
-
-
-
-
-
-
-
 /* --- Alle Gebäude zusammenfassen --- */
 const ELEMENT = {
     EMPTY,
@@ -206,7 +199,8 @@ const ELEMENT = {
    ============================================================ */
 
 const CONFIG = {
-    GRID_SIZE: 30,
+    GRID_SIZE: 40,
+    ZOOM_FACTOR: 1,
     CANVAS_ID: "game",
     INCOME_INTERVAL_MS: 1000,
     WARNING_TIMEOUT_MS: 60000,
@@ -239,13 +233,15 @@ const DIRECTION = {
     NORTH: [0, -1],
 };
 
+const LOADED_IMAGES = {}
+
 /* ============================================================
    3. SPIELSTATUS (GAME STATE)
    ============================================================ */
 
 const canvas = document.getElementById(CONFIG.CANVAS_ID);
 const ctx = canvas.getContext("2d");
-const tileSize = canvas.width / CONFIG.GRID_SIZE;
+const tileSize = canvas.width / CONFIG.GRID_SIZE * CONFIG.ZOOM_FACTOR;
 
 let currentBuildingType = ELEMENT.RES.id;
 let map = []; // Die Spielkarte
@@ -320,6 +316,18 @@ function initCars() {
             dir: DIRECTION.EAST,
         });
     });
+}
+
+function preloadImages() {
+    for (const key in ELEMENT) {
+        const elem = ELEMENT[key];
+        if (elem.image) {
+            const img = new Image();
+            img.src = elem.image;
+            LOADED_IMAGES[key] = img;
+        }
+    }
+
 }
 
 /* ============================================================
@@ -534,6 +542,16 @@ function draw() {
             const type = map[y][x];
             ctx.fillStyle = ELEMENT[type].color || "#333";
             ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+
+            // Draw image if available
+            if (ELEMENT[type].image && LOADED_IMAGES[type]) {
+                const img = LOADED_IMAGES[type];
+                if (img.complete) {
+                    ctx.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
+                }
+            }
+
+
             ctx.strokeStyle = "#222";
             ctx.strokeRect(x * tileSize, y * tileSize, tileSize, tileSize);
         }
@@ -632,5 +650,6 @@ buildStartCity();
 // initPeople();
 initCars();
 setType(currentBuildingType);
+preloadImages();
 draw();
 gameLoop();
