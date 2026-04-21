@@ -103,7 +103,7 @@ scripts/update.sh
 ### Das ist alles....
 
 ```
-Keine Angst, es ist nicht so kompliziert, wie es aussieht!
+Keine Angst, es ist nicht so kompliziert, wie es aussieht
 
 Und wenn was kapput geht, kannst du im Editor immer die Änderungen rückgängig 
 machen oder die Originaldatei wiederherstellen. 
