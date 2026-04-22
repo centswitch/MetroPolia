@@ -159,19 +159,6 @@ const POWER_PLANT = {
     increasePollution: () => 5,
 };
 
-
-const WIND_PARK = {
-    id: "WIND",
-    cost: 250,
-    name: "Windpark",
-    color: "#7f8c8d",
-    category: "power",
-    calculateIncome: () => 100000000000000000000,
-    increasePopulation: () => 1000000000000000,
-    increaseCapacity: () => 10000000000000000000000000000,
-    increasePollution: () => -1000000000000000000000000,
-};
-
 /* --- Öffentliche Gebäude --- */
 const PARK = {
     id: "PARK",
@@ -199,7 +186,6 @@ const ELEMENT = {
     POWER: POWER_PLANT,
     HOTEL,
     FARM,
-    WIND: WIND_PARK,
 };
 
 /* ============================================================
